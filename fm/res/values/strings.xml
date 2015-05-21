@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">fm</string>
+    <string name="action_settings">11</string>
+    <string name="text">Channel : 76 ~ 108 MHZ  0.1Mhz/step</string>
+    <string name="set">Set</string>
+    <string name="open">on</string>
+    <string name="close">off</string>
+    <string name="channel">THE FM CHANNEL :</string>
+    <string name="channel_text">MHZ</string>
+    <string name="title_activity_number_picker_dialog">NumberPickerDialog</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="cancel">Cancel</string>
+    <string name="enter">Set</string>
+
+</resources>
