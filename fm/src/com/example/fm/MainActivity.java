@@ -195,7 +195,9 @@ public class MainActivity extends Activity implements OnValueChangeListener,OnSc
 	        mEditor.commit(); 
 */
 			
-			new NumberPickerDialog(MainActivity.this).show();
+			new NumberPickerDialog(MainActivity.this,"95.3").show();
+			
+			finish();
 			
 //	        Toast.makeText(MainActivity.this, "FM发射频道为" + EditTextStr + "MHZ", Toast.LENGTH_SHORT).show();
 		}
