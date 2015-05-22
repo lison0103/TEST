@@ -7,15 +7,24 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class NumberPickerDialog extends Dialog implements android.view.View.OnClickListener {
+	
+	public interface OnCustomDialogListener {
+		public void back(String name);
+	}
 
 	private NumberPicker myfirstPicker;
 	private NumberPicker mysecondPicker;
 	
+	private OnCustomDialogListener customDialogListener;
+	
 	private Button set_button;
+	private Button cancel_button;
 	
 	private SharedPreferences mSharedPreference;
 	private SharedPreferences.Editor mEdit;
@@ -27,12 +36,15 @@ public class NumberPickerDialog extends Dialog implements android.view.View.OnCl
 	int x;    
 	float y;
 
-	public NumberPickerDialog(Context context,String fmchannel) {
+	public NumberPickerDialog(Context context,String fmchannel,
+			OnCustomDialogListener customDialogListener) {
 		super(context);
 		// TODO Auto-generated constructor stub
 //		super(context);  
         this.context = context;
         this.mfmchannel = fmchannel;
+        this.customDialogListener = customDialogListener;
+        
         channel = Float.parseFloat(mfmchannel);
         x = (int)channel;
         y = channel - (float)x;
@@ -43,9 +55,12 @@ public class NumberPickerDialog extends Dialog implements android.view.View.OnCl
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_number_picker_dialog);
 		
+//		setTitle("FM发射频道设置"); 
+		
 		myfirstPicker =(NumberPicker) findViewById(R.id.channelfirstpicker);
 		mysecondPicker =(NumberPicker) findViewById(R.id.channelsecondpicker);
 		set_button = (Button)findViewById(R.id.enter_button);
+		cancel_button = (Button)findViewById(R.id.cancel_button);
 		
 		mSharedPreference=PreferenceManager.getDefaultSharedPreferences(context);
 		mEdit=mSharedPreference.edit();
@@ -61,7 +76,9 @@ public class NumberPickerDialog extends Dialog implements android.view.View.OnCl
 		mysecondPicker.setValue((int)(y*10));
 		mysecondPicker.setDescendantFocusability(mysecondPicker.FOCUS_BLOCK_DESCENDANTS); 
 		
-		set_button.setOnClickListener(this);  
+		set_button.setOnClickListener(this); 
+		cancel_button.setOnClickListener(this); 
+		
 	}
 	
 	@Override  
@@ -73,16 +90,19 @@ public class NumberPickerDialog extends Dialog implements android.view.View.OnCl
 			
 //			SetFm(SetFmCh, EditTextStr);			
 
-			
 			mEdit.putString("channel", ChannelStr);  
 			mEdit.commit(); 
 			
-			
 	        Toast.makeText(context, "FM" + ChannelStr + "MHZ", Toast.LENGTH_SHORT).show();
-
-		
+	        
+	        customDialogListener.back(ChannelStr);
+            NumberPickerDialog.this.dismiss();
 
             break;  
+        case R.id.cancel_button:
+            NumberPickerDialog.this.dismiss();
+        	
+        	break;
 
         }  
     }  

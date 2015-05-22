@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -195,9 +196,23 @@ public class MainActivity extends Activity implements OnValueChangeListener,OnSc
 	        mEditor.commit(); 
 */
 			
-			new NumberPickerDialog(MainActivity.this,"95.3").show();
+//			new NumberPickerDialog(MainActivity.this,"95.3").show();
 			
-			finish();
+			NumberPickerDialog dialog = new NumberPickerDialog(
+					MainActivity.this, mSharedPreferences.getString("channel",
+							"95.3"),
+					new NumberPickerDialog.OnCustomDialogListener() {
+
+						@Override
+						public void back(String name) {
+							edit_text.setText(name);
+
+						}
+						
+					});
+			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+			dialog.show();
+			
 			
 //	        Toast.makeText(MainActivity.this, "FM发射频道为" + EditTextStr + "MHZ", Toast.LENGTH_SHORT).show();
 		}
