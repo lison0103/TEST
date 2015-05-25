@@ -13,6 +13,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="cancel">Cancel</string>
     <string name="enter">Set</string>
-    <string name="channel_title">88.8</string>
+    <string name="channel_title">FM transmitter Channel Setting</string>
 
 </resources>

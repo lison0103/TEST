@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.NumberPicker.OnValueChangeListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class NumberPickerDialog extends Dialog implements
@@ -30,7 +29,6 @@ public class NumberPickerDialog extends Dialog implements
 	private SharedPreferences mSharedPreference;
 	private SharedPreferences.Editor mEdit;
 
-	private TextView mtitle_text;
 	String ChannelStr;
 
 	Context context;
@@ -38,7 +36,9 @@ public class NumberPickerDialog extends Dialog implements
 	float channel;
 
 	int x;
-	float y;
+	int y;
+
+	// float y;
 
 	public NumberPickerDialog(Context context, String fmchannel,
 			OnCustomDialogListener customDialogListener) {
@@ -49,8 +49,15 @@ public class NumberPickerDialog extends Dialog implements
 		this.customDialogListener = customDialogListener;
 
 		channel = Float.parseFloat(mfmchannel);
-		x = (int) channel;
-		y = channel - (float) x;
+		// x = (int) channel;
+		// y = channel - (float) x;
+
+		String str = Float.toString(channel);
+		String arr[] = str.split("[.]");
+
+		x = Integer.parseInt(arr[0]);
+		y = Integer.parseInt(arr[1]);
+
 	}
 
 	@Override
@@ -58,13 +65,13 @@ public class NumberPickerDialog extends Dialog implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_number_picker_dialog);
 
-		// setTitle("FM发射频道设置");
+//		setTitle("FM transmitter Setting");
+		setTitle(context.getString(R.string.channel_title));
 
 		myfirstPicker = (NumberPicker) findViewById(R.id.channelfirstpicker);
 		mysecondPicker = (NumberPicker) findViewById(R.id.channelsecondpicker);
 		set_button = (Button) findViewById(R.id.enter_button);
 		cancel_button = (Button) findViewById(R.id.cancel_button);
-		mtitle_text = (TextView) findViewById(R.id.setchannel_title);
 
 		mSharedPreference = PreferenceManager
 				.getDefaultSharedPreferences(context);
@@ -99,15 +106,13 @@ public class NumberPickerDialog extends Dialog implements
 		mysecondPicker.setOnValueChangedListener(this);
 		// mysecondPicker.setMaxValue(9);
 		// mysecondPicker.setMinValue(0);
-		mysecondPicker.setValue((int) (y * 10));
+		// mysecondPicker.setValue((int) (y * 10));
+		mysecondPicker.setValue(y);
 		mysecondPicker
 				.setDescendantFocusability(mysecondPicker.FOCUS_BLOCK_DESCENDANTS);
 
 		set_button.setOnClickListener(this);
 		cancel_button.setOnClickListener(this);
-
-		mtitle_text.setText(myfirstPicker.getValue() + "."
-				+ mysecondPicker.getValue());
 
 	}
 
@@ -134,7 +139,6 @@ public class NumberPickerDialog extends Dialog implements
 			}
 		}
 		ChannelStr = myfirstPicker.getValue() + "." + mysecondPicker.getValue();
-		mtitle_text.setText(ChannelStr);
 
 		// Toast.makeText(context, "原来的值 " + oldVal + "--新值: " + newVal,
 		// Toast.LENGTH_SHORT).show();
@@ -144,6 +148,9 @@ public class NumberPickerDialog extends Dialog implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.enter_button:
+
+			ChannelStr = myfirstPicker.getValue() + "."
+					+ mysecondPicker.getValue();
 
 			mEdit.putString("channel", ChannelStr);
 			mEdit.commit();

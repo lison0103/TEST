@@ -206,7 +206,7 @@ public class MainActivity extends Activity implements OnValueChangeListener,
 						}
 
 					});
-			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 			dialog.show();
 
 			// Toast.makeText(MainActivity.this, "FM发射频道为" + EditTextStr +
