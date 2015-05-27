@@ -206,6 +206,7 @@ public class MainActivity extends Activity implements OnValueChangeListener,
 						}
 
 					});
+			
 //			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 			dialog.show();
 

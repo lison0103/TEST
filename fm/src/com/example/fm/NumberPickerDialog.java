@@ -67,6 +67,7 @@ public class NumberPickerDialog extends Dialog implements
 
 //		setTitle("FM transmitter Setting");
 		setTitle(context.getString(R.string.channel_title));
+		context.getResources().getString(R.string.channel_title);  
 
 		myfirstPicker = (NumberPicker) findViewById(R.id.channelfirstpicker);
 		mysecondPicker = (NumberPicker) findViewById(R.id.channelsecondpicker);
